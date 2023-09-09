@@ -2,6 +2,11 @@ const express=require('express');
 const app=express();
 const port=8000; 
 const expressLayouts=require('express-ejs-layouts');
+const db=require('./config/mongoose'); //aquiring database
+const cookieParser=require('cookie-parser'); //for cookies
+
+app.use(express.urlencoded()); //reading through post request
+app.use(cookieParser()); //cookie middleware
 
 app.use(expressLayouts); //using express layouts
 app.use(express.static('./assets')) //setting static file for layout
