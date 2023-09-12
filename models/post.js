@@ -6,7 +6,7 @@ const postSchema=new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+        ref:'user'
     },
 
 },{
@@ -14,4 +14,4 @@ const postSchema=new mongoose.Schema({
 })
 
 const post=mongoose.model('Post',postSchema);
-module.exports=Post;
+module.exports=post;
