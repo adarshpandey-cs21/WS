@@ -12,6 +12,7 @@ const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
 
+
 // app.use(sassMiddleware({
 //     src:'./assets/scss',
 //     dest:'./assets/css',
@@ -19,7 +20,7 @@ const MongoStore=require('connect-mongo');
 //     outputStyle:'extended',
 //     prefix:'/css'
 // }));
-app.use(express.urlencoded()); //reading through post request
+app.use(express.urlencoded({extended:true})); //reading through post request
 app.use(cookieParser()); //cookie middleware
 
 app.use(expressLayouts); //using express layouts

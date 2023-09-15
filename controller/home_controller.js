@@ -8,7 +8,14 @@ module.exports.home=function(req,res){
     // res.cookie('adarsh',87);
 
     Post.find({})
-        .populate('user').exec()    //of each post for not populate ->find({}).then().err
+        .populate('user')
+        .populate({
+            path:'comments',
+            populate:{
+                path:'user'
+            }
+        })
+        .exec()    //of each post for not populate ->find({}).then().err
         .then((posts)=>{
             return res.render('home',{
                 title:"Codeial | Home",

@@ -2,6 +2,9 @@ const express=require('express');
 const router=express.Router();
 const passport=require('passport');
 
-const commentController=require('../controller/comments_controller');
-router.post('/create',passport.checkAuthentication,commentController.create); 
+const commentsController=require('../controller/comments_controller');
+router.post('/create',commentsController.create); 
+// router.get('/destroy/:id',passport.checkAuthentication,postsController.destroy);
+ 
+
 module.exports=router;
