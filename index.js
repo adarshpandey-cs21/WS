@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true})); //reading through post request
 app.use(cookieParser()); //cookie middleware
 
 app.use(expressLayouts); //using express layouts
-app.use(express.static('./assets')) //setting static file for layout
+app.use(express.static('./assets')); //setting static file for layout
 
 
 //extract style and scripts from sub pages into the layout

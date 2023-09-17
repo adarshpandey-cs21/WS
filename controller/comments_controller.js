@@ -37,27 +37,26 @@ module.exports.create = function (req, res) {
 
 module.exports.destroy = async function (req, res) {
     try {
-        // Find the post by its ID
+        // Find the comment by its ID
         const comment = await Comment.findOne({ _id: req.params.id });
 
         if (!comment) {
-            // Handle the case where no post with the given ID is found
+            // Handle the case where no comment with the given ID is found
             return res.redirect('back');
         }
 
-        // Check if the user owns the post (compare as strings)
+        // Check if the user owns the comment (compare as strings)
         if (comment .user.toString() === req.user.id.toString()) {
             let postId=comment.post;
             // Remove the comment
             await Comment.deleteOne({ _id: comment._id });
 
-            // Remove update post
+            // Remove  update post
             Post.findByIdAndUpdate(postId,{ $pull:{comments:req.params.id}});
-            
-
             return res.redirect('back');
+            
         } else {
-            // If the user doesn't own the post, redirect back
+            // If the user doesn't own the comment, redirect back
             return res.redirect('back');
         }
     } catch (err) {
