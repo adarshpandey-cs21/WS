@@ -1,16 +1,28 @@
+
 const express=require('express');
 const app=express();
 const port=8000; 
 const expressLayouts=require('express-ejs-layouts');
 const db=require('./config/mongoose'); //aquiring database
 const cookieParser=require('cookie-parser'); //for cookies
-// const sassMiddleware=require('node-sass'); //node-sass-middleware not working
+ const sassMiddleware=require('sass-middleware'); //node-sass-middleware not working
+
+// Add Sass middleware with options
+app.use(
+  sassMiddleware({
+    src: sassSrc,
+    dest: cssDest,
+    debug: true, // Optional, enables debugging information in the compiled CSS
+  })
+);
+
 
 //used for session coookie
 const session=require("express-session");
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
+const connect=require()
 
 // app.use(sassMiddleware({
 //     src:'./assets/scss',
