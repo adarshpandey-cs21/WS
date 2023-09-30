@@ -28,7 +28,7 @@ module.exports.update=function(req,res){
                 console.log(err);
             })
     }else{
-        return res.status(401).send('Unauthorized');
+        return res.status(401).send('Unauthorized ');
     }
 }
 
@@ -86,6 +86,7 @@ module.exports.create=function(req,res){
 
 //sign in and create a session for user 
 module.exports.createSession=function(req,res){
+    req.flash('success','Logged in successfully');
     return res.redirect('/');
 }
 
@@ -97,5 +98,6 @@ module.exports.destroySession=function(req,res){
             return next(err);
         }
     });
+    req.flash('success','You have logged out');
     return res.redirect('/');
 }

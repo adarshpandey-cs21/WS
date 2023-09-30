@@ -5,16 +5,7 @@ const port=8000;
 const expressLayouts=require('express-ejs-layouts');
 const db=require('./config/mongoose'); //aquiring database
 const cookieParser=require('cookie-parser'); //for cookies
- const sassMiddleware=require('sass-middleware'); //node-sass-middleware not working
-
-// Add Sass middleware with options
-app.use(
-  sassMiddleware({
-    src: sassSrc,
-    dest: cssDest,
-    debug: true, // Optional, enables debugging information in the compiled CSS
-  })
-);
+//  const sassMiddleware=require('sass-middleware'); //node-sass-middleware not working
 
 
 //used for session coookie
@@ -22,15 +13,10 @@ const session=require("express-session");
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
-const connect=require()
+const flash=require('connect-flash');
+const customMware=require('./config/middleware');
 
-// app.use(sassMiddleware({
-//     src:'./assets/scss',
-//     dest:'./assets/css',
-//     debug:true,
-//     outputStyle:'extended',
-//     prefix:'/css'
-// }));
+
 app.use(express.urlencoded({extended:true})); //reading through post request
 app.use(cookieParser()); //cookie middleware
 
@@ -75,6 +61,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 //using router
 app.use('/',require('./routes'))
