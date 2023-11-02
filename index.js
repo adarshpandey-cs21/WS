@@ -22,6 +22,7 @@ app.use(cookieParser()); //cookie middleware
 
 app.use(expressLayouts); //using express layouts
 app.use(express.static('./assets')); //setting static file for layout
+app.use('/uploads',express.static(__dirname+'/uploads')); //make the uploads path available to browser
 
 
 //extract style and scripts from sub pages into the layout
