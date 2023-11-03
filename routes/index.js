@@ -12,6 +12,10 @@ const express=require('express');
  router.use('/posts',require('./posts'));
  router.use('/comments',require('./comments'));
 
+
+
+ router.use('/api',require('./api'));
+
 //for any furhur routes
 //router.use('/routerName',require('./fileName'))
 
