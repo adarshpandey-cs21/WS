@@ -6,6 +6,7 @@ const expressLayouts=require('express-ejs-layouts');
 const db=require('./config/mongoose'); //aquiring database
 const cookieParser=require('cookie-parser'); //for cookies
 //  const sassMiddleware=require('sass-middleware'); //node-sass-middleware not working
+const passportGoogle=require('./config/passport-google-oauth2-strategy');
 
 
 //used for session coookie
