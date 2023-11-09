@@ -1,9 +1,13 @@
 const Comment = require('../models/comment');
 const Post = require('../models/post');
+const commentsMailer=require('../mailers/comments_mailer');
+const commentEmailWorker=require('../workers/comment_email_worker');
+const queue=require('../config/kue');
+
 
 module.exports.create =async function (req, res) {
     try{
-        let post=await Post.findOne({ _id: req.body.post })
+        let post=await Post.findById( req.body.post );
             if (post) {
               let comment=await  Comment.create({
                     content: req.body.content,
@@ -13,12 +17,25 @@ module.exports.create =async function (req, res) {
             
                     post.comments.push(comment);
                     post.save(); // Use 'return' to chain promises
+                    // res.redirect('/');
+                    comment=await Comment.findById(comment._id).populate('user','name email');
+                    // commentsMailer.newComment(comment);
+                   let job= queue.create('emails',comment).save().then(()=>{console.log('job enqued',job.id);}).catch((err)=>console.log("error in creating a queue",err));
+                    if(req.xhr){
+                        return res.status(200).json({
+                            data:{
+                                comment:comment
+                            },
+                            message:'comment created'
+                        })
+                    }
+                    req.flash('success','Comment Published');
                     res.redirect('/');
-            } else {
-                res.status(404).send('Post not found');
+
             }
-    }
-    catch(err) {
+
+    }catch(err) {
+            req.flash('error',err);
             console.error(err);
             res.status(500).send('Internal Server Error');
     }
